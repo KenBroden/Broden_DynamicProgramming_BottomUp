@@ -31,6 +31,7 @@ public class StringBreak {
         int[][] split = new int[m][m]; // Reconstruct the sequence of breaks
 
         // Bottom up DP loop
+        // Time complexity: O(n^3)
         for (int length = 2; length < m; length++) {
             for (int i = 0; i < m - length; i++) {
                 int j = i + length;
@@ -48,10 +49,12 @@ public class StringBreak {
         // Reconstruction
         List<Integer> sequence = new ArrayList<>();
         reconstruct(bp, split, 0, m - 1, sequence);
+        Collections.sort(sequence); // Ensure the sequence is in order
         return new Result(dp[0][m - 1], sequence, bp);
     }
 
     // Reconstruct the sequence of breaks
+    // Time complexity: O(n)
     private static void reconstruct(int[] bp, int[][] split, int i, int j, List<Integer> sequence) {
         if (i + 1 == j) {
             return;
