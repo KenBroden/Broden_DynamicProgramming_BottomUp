@@ -31,18 +31,20 @@ public class StringBreak {
         int[][] split = new int[m][m]; // Reconstruct the sequence of breaks
 
         // Bottom up DP loop
-        // Time complexity: O(n^3)
+        // Time complexity: O(m^3)
         for (int length = 2; length < m; length++) {
             for (int i = 0; i < m - length; i++) {
                 int j = i + length;
                 dp[i][j] = Integer.MAX_VALUE;
                 for (int k = i + 1; k < j; k++) {
                     int cost = dp[i][k] + dp[k][j] + bp[j] - bp[i];
+                    System.out.printf("Considering split at k=%d for dp[%d][%d]: cost=%d\n", k, i, j, cost);
                     if (cost < dp[i][j]) {
                         dp[i][j] = cost;
                         split[i][j] = k;
                     }
                 }
+                System.out.printf("dp[%d][%d] = %d\n", i, j, dp[i][j]);
             }
         }
 
